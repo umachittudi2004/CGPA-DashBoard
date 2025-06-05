@@ -20,7 +20,7 @@ const showAllData = () => {
                     <div className="student-card" key={index}>
                         <img
                             src={`https://info.aec.edu.in/ACET/StudentPhotos/${item['Roll.No']}.jpg`}
-                            onError={(e) => (e.target.src = `${import.meta.env.BASE_URL}4537019.png`)}
+                            onError={e => (e.target.src = `${import.meta.env.BASE_URL}4537019.png`)}
                             alt="student"
                         />
                         <h3>{item.year} Year</h3>

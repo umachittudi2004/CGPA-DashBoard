@@ -70,7 +70,7 @@ const ShowDataByFilters = ({ data }) => {
                         <div key={idx} className="student-card">
                             <img
                                 src={`https://info.aec.edu.in/ACET/StudentPhotos/${item['Roll.No']}.jpg`}
-                                onError={(e) => e.target.src = '/4537019.png'}
+                                onError={e => (e.target.src = `${import.meta.env.BASE_URL}4537019.png`)}
                                 alt="Student"
                             />
                             <h3>{item.year} Year</h3>
