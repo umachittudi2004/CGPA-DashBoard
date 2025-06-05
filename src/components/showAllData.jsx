@@ -25,6 +25,17 @@ const showAllData = () => {
                         />
                         <h3>{item.year} Year</h3>
                         <p><strong>Roll No:</strong> {item['Roll.No']}</p>
+                        {item['Name'] && (
+                            <p><strong>Name:</strong> {item['Name']}</p>
+                        )}
+                        {
+                            item['Email'] && (
+                                <p> <strong> Email:</strong>  {item['Email']} </p>
+                            )
+                        }
+                        {item['Mobile Number'] && (
+                            <p><strong>Mobile Number: </strong> {item['Mobile Number']}</p>
+                        )}
                         <p><strong>CGPA:</strong> {item['CGPA']}</p>
                         <p><strong>Department:</strong> {item.branch}</p>
                         <p><strong>College:</strong> {item.collage}</p>
