@@ -18,6 +18,9 @@ export const parseRollNo = (rollNo) => {
     else if(branchCode === '42') {
         branch = 'CSE-Artificial Intelligence and Machine Learning';
     }
+    else if(branchCode === '61') {
+        branch = 'Artificial Intelligence and Machine Learning';
+    }
     else if(branchCode === '05') {
         branch = 'CSE';
     }
