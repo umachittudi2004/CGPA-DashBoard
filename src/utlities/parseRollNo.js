@@ -13,16 +13,40 @@ export const parseRollNo = (rollNo) => {
         year = '3'
     }
     if(branchCode === '44') {
-        branch = 'Data Science';
+        branch = 'CSE-Data Science';
     }
     else if(branchCode === '42') {
-        branch = 'Aiml';
+        branch = 'CSE-Artificial Intelligence and Machine Learning';
+    }
+    else if(branchCode === '05') {
+        branch = 'CSE';
+    }
+    else if(branchCode === "49"){
+        branch = 'CSE-Internet of Things';
+    }
+    else if(branchCode === '12') {
+        branch = 'IT';
+    }
+    else if(branchCode === '04') {
+        branch = 'ECE';
+    }
+    else if(branchCode === '02') {
+        branch = 'EEE';
+    }
+    else if(branchCode === '03') {
+        branch = 'MECH';
+    }
+    else if(branchCode === '01') {
+        branch = 'CIVIL';
     }
     if(collageCode === 'P3') {
         collage = 'Aditya College of Engineering and Technology';
     }
     else if(collageCode === 'MH') {
         collage = 'Aditya college of Engineering';
+    }
+    else if(collageCode === 'A9') {
+        collage = 'Aditya Engineering College';
     }
     return {
         year,

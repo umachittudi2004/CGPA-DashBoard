@@ -10,21 +10,23 @@ const ShowDataByFilters = ({ data }) => {
     const [selectedBranch, setSelectedBranch] = useState('');
     const [selectedCollege, setSelectedCollege] = useState('');
     const [rollSearch, setRollSearch] = useState('');
+    const [nameSearch, setNameSearch] = useState('');
 
     const [filteredData, setFilteredData] = useState(data);
 
     useEffect(() => {
         let filtered = data;
-
         if (selectedYear) filtered = filtered.filter(item => item.year === selectedYear);
         if (selectedBranch) filtered = filtered.filter(item => item.branch === selectedBranch);
         if (selectedCollege) filtered = filtered.filter(item => item.collage === selectedCollege);
         if (rollSearch) {
             filtered = filtered.filter(item => item['Roll.No']?.toLowerCase().includes(rollSearch.toLowerCase()));
         }
-
+        if (nameSearch) {
+            filtered = filtered.filter(item => item['Name']?.toLowerCase().includes(nameSearch.toLowerCase()));
+        }
         setFilteredData(filtered);
-    }, [selectedYear, selectedBranch, selectedCollege, rollSearch, data]);
+    }, [selectedYear, selectedBranch, selectedCollege, rollSearch, data, nameSearch]);
 
     return (
         <div className="filter-container">
@@ -57,9 +59,14 @@ const ShowDataByFilters = ({ data }) => {
                     value={rollSearch}
                     onChange={e => setRollSearch(e.target.value)}
                 />
+                <input
+                    type="text"
+                    placeholder="Search by Name"
+                    className="name-search"
+                    value={nameSearch}
+                    onChange={e => setNameSearch(e.target.value)}
+                />
             </div>
-
-
             <hr />
             <h3>Filtered Students ({filteredData.length})</h3>
             <div className="student-container">
@@ -68,11 +75,21 @@ const ShowDataByFilters = ({ data }) => {
                 ) : (
                     filteredData.map((item, idx) => (
                         <div key={idx} className="student-card">
-                            <img
-                                src={`https://info.aec.edu.in/ACET/StudentPhotos/${item['Roll.No']}.jpg`}
-                                onError={e => (e.target.src = `${import.meta.env.BASE_URL}4537019.png`)}
-                                alt="Student"
-                            />
+                            {
+                            item["Roll.No"].slice(2,4) === "A9" ? (
+                                <img
+                            src={`https://info.aec.edu.in/AEC/StudentPhotos/${item['Roll.No']}.jpg`}
+                            onError={e => (e.target.src = `${import.meta.env.BASE_URL}4537019.png`)}
+                            alt="student"
+                        />
+                            ) : (
+                                <img
+                            src={`https://info.aec.edu.in/ACET/StudentPhotos/${item['Roll.No']}.jpg`}
+                            onError={e => (e.target.src = `${import.meta.env.BASE_URL}4537019.png`)}
+                            alt="student"
+                        />
+                            )
+                        }
                             <h3>{item.year} Year</h3>
                             <p><strong>Roll No:</strong> {item['Roll.No']}</p>
                             {item['Name'] && (

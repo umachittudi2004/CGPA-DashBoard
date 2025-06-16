@@ -18,11 +18,21 @@ const showAllData = () => {
             <div className="student-container">
                 {currentData.map((item, index) => (
                     <div className="student-card" key={index}>
-                        <img
+                        {
+                            item["Roll.No"].slice(2,4) === "A9" ? (
+                                <img
+                            src={`https://info.aec.edu.in/AEC/StudentPhotos/${item['Roll.No']}.jpg`}
+                            onError={e => (e.target.src = `${import.meta.env.BASE_URL}4537019.png`)}
+                            alt="student"
+                        />
+                            ) : (
+                                <img
                             src={`https://info.aec.edu.in/ACET/StudentPhotos/${item['Roll.No']}.jpg`}
                             onError={e => (e.target.src = `${import.meta.env.BASE_URL}4537019.png`)}
                             alt="student"
                         />
+                            )
+                        }
                         <h3>{item.year} Year</h3>
                         <p><strong>Roll No:</strong> {item['Roll.No']}</p>
                         {item['Name'] && (
@@ -36,6 +46,7 @@ const showAllData = () => {
                         {item['Mobile Number'] && (
                             <p><strong>Mobile Number: </strong> {item['Mobile Number']}</p>
                         )}
+                        
                         <p><strong>CGPA:</strong> {item['CGPA']}</p>
                         <p><strong>Department:</strong> {item.branch}</p>
                         <p><strong>College:</strong> {item.collage}</p>
