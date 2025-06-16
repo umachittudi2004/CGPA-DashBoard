@@ -58,6 +58,15 @@
   border-radius: 10px;
     border: 1px solid #ccc;
 }
+.name-search{
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+.name-search:focus {
+  border-color: #e69e00;
+  outline: none;
+}
 .roll-search:focus{
     border-color: #e69e00;
     outline: none;

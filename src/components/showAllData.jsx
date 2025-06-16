@@ -46,8 +46,33 @@ const showAllData = () => {
                         {item['Mobile Number'] && (
                             <p><strong>Mobile Number: </strong> {item['Mobile Number']}</p>
                         )}
+                        {/* {
+                            item["Gender"] && (
+                                <p> <strong>Gender:</strong> {item["Gender"]} </p>
+                            )
+                        } */}
+                        {
+                            item["SSC CGPA"] && (
+                                <p> <strong>SSC CGPA:</strong> {item["SSC CGPA"]} </p>
+                            )
+                        }
+                        {
+                            item["Inter %"] && (
+                                <p> <strong>Inter %:</strong> {item["Inter %"]} </p>
+                            )
+                        }
+                        {
+                            item["Diploma"] && (
+                                <p> <strong>Diploma %:</strong> {item["Gender"]} </p>
+                            )
+                        }
+                        {
+                            item["BL"] && (
+                                <p> <strong>BackLog:</strong> {item["BL"]} </p>
+                            )
+                        }
                         
-                        <p><strong>CGPA:</strong> {item['CGPA']}</p>
+                        <p><strong>BTech CGPA:</strong> {item['CGPA']}</p>
                         <p><strong>Department:</strong> {item.branch}</p>
                         <p><strong>College:</strong> {item.collage}</p>
                     </div>

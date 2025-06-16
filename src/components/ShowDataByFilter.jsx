@@ -52,6 +52,7 @@ const ShowDataByFilters = ({ data }) => {
                         <option key={college} value={college}>{college}</option>
                     ))}
                 </select>
+                
                 <input
                     type="text"
                     placeholder="Search by Roll Number"

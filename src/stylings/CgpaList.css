@@ -65,7 +65,7 @@ input[type="file"]::file-selector-button {
   gap: 10px;
 }
 .btn-container button {
-  border: none;
+  border : 1px solid #e69e00;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
