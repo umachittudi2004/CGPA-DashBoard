@@ -5,12 +5,14 @@ const ShowDataByFilters = ({ data }) => {
     const uniqueYears = [...new Set(data.map(d => d.year).filter(Boolean))];
     const uniqueBranches = [...new Set(data.map(d => d.branch).filter(Boolean))];
     const uniqueColleges = [...new Set(data.map(d => d.collage).filter(Boolean))];
-
+    const uniqueGenders = [...new Set(data.map(d => d["Gender"]).filter(Boolean))];
+    const genderExists = data.some(d => d["Gender"]);
     const [selectedYear, setSelectedYear] = useState('');
     const [selectedBranch, setSelectedBranch] = useState('');
     const [selectedCollege, setSelectedCollege] = useState('');
     const [rollSearch, setRollSearch] = useState('');
     const [nameSearch, setNameSearch] = useState('');
+    const [selectedGender, setSelectedGender] = useState('');
 
     const [filteredData, setFilteredData] = useState(data);
 
@@ -19,6 +21,7 @@ const ShowDataByFilters = ({ data }) => {
         if (selectedYear) filtered = filtered.filter(item => item.year === selectedYear);
         if (selectedBranch) filtered = filtered.filter(item => item.branch === selectedBranch);
         if (selectedCollege) filtered = filtered.filter(item => item.collage === selectedCollege);
+        if (selectedGender) filtered = filtered.filter(item => item["Gender"] === selectedGender);
         if (rollSearch) {
             filtered = filtered.filter(item => item['Roll.No']?.toLowerCase().includes(rollSearch.toLowerCase()));
         }
@@ -26,7 +29,7 @@ const ShowDataByFilters = ({ data }) => {
             filtered = filtered.filter(item => item['Name']?.toLowerCase().includes(nameSearch.toLowerCase()));
         }
         setFilteredData(filtered);
-    }, [selectedYear, selectedBranch, selectedCollege, rollSearch, data, nameSearch]);
+    }, [selectedYear, selectedBranch, selectedGender, selectedCollege, rollSearch, data, nameSearch]);
 
     return (
         <div className="filter-container">
@@ -52,7 +55,17 @@ const ShowDataByFilters = ({ data }) => {
                         <option key={college} value={college}>{college}</option>
                     ))}
                 </select>
-                
+
+                {genderExists && (
+                    <select value={selectedGender} onChange={e => setSelectedGender(e.target.value)}>
+                        <option value="">All Genders</option>
+                        {uniqueGenders.map(gender => (
+                            <option key={gender} value={gender}>{gender}</option>
+                        ))}
+                    </select>
+                )}
+
+
                 <input
                     type="text"
                     placeholder="Search by Roll Number"
@@ -77,20 +90,20 @@ const ShowDataByFilters = ({ data }) => {
                     filteredData.map((item, idx) => (
                         <div key={idx} className="student-card">
                             {
-                            item["Roll.No"].slice(2,4) === "A9" ? (
-                                <img
-                            src={`https://info.aec.edu.in/AEC/StudentPhotos/${item['Roll.No']}.jpg`}
-                            onError={e => (e.target.src = `${import.meta.env.BASE_URL}4537019.png`)}
-                            alt="student"
-                        />
-                            ) : (
-                                <img
-                            src={`https://info.aec.edu.in/ACET/StudentPhotos/${item['Roll.No']}.jpg`}
-                            onError={e => (e.target.src = `${import.meta.env.BASE_URL}4537019.png`)}
-                            alt="student"
-                        />
-                            )
-                        }
+                                item["Roll.No"].slice(2, 4) === "A9" ? (
+                                    <img
+                                        src={`https://info.aec.edu.in/AEC/StudentPhotos/${item['Roll.No']}.jpg`}
+                                        onError={e => (e.target.src = `${import.meta.env.BASE_URL}4537019.png`)}
+                                        alt="student"
+                                    />
+                                ) : (
+                                    <img
+                                        src={`https://info.aec.edu.in/ACET/StudentPhotos/${item['Roll.No']}.jpg`}
+                                        onError={e => (e.target.src = `${import.meta.env.BASE_URL}4537019.png`)}
+                                        alt="student"
+                                    />
+                                )
+                            }
                             <h3>{item.year} Year</h3>
                             <p><strong>Roll No:</strong> {item['Roll.No']}</p>
                             {item['Name'] && (
@@ -103,6 +116,29 @@ const ShowDataByFilters = ({ data }) => {
                             }
                             {item['Mobile Number'] && (
                                 <p><strong>Mobile Number: </strong> {item['Mobile Number']}</p>
+                            )}
+                            {
+                                item["Gender"] && (
+                                    <p> <strong>Gender:</strong> {item["Gender"]} </p>
+                                )
+                            }
+                            {
+                                item["SSC CGPA"] && (
+                                    <p> <strong>SSC CGPA:</strong> {item["SSC CGPA"]} </p>
+                                )
+                            }
+                            {
+                                item["Inter %"] && (
+                                    <p> <strong>Inter:</strong> {item["Inter %"]}% </p>
+                                )
+                            }
+                            {
+                                item["Diploma"] && (
+                                    <p> <strong>Diploma %:</strong> {item["Diploma"]} </p>
+                                )
+                            }
+                            {item["BL"] !== undefined && item["BL"] !== null && (
+                                <p><strong>Backlog:</strong> {item["BL"] === 0 ? "None" : item["BL"]}</p>
                             )}
                             <p><strong>CGPA:</strong> {item['CGPA']}</p>
                             <p><strong>Department:</strong> {item.branch}</p>

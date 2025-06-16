@@ -19,18 +19,18 @@ const showAllData = () => {
                 {currentData.map((item, index) => (
                     <div className="student-card" key={index}>
                         {
-                            item["Roll.No"].slice(2,4) === "A9" ? (
+                            item["Roll.No"].slice(2, 4) === "A9" ? (
                                 <img
-                            src={`https://info.aec.edu.in/AEC/StudentPhotos/${item['Roll.No']}.jpg`}
-                            onError={e => (e.target.src = `${import.meta.env.BASE_URL}4537019.png`)}
-                            alt="student"
-                        />
+                                    src={`https://info.aec.edu.in/AEC/StudentPhotos/${item['Roll.No']}.jpg`}
+                                    onError={e => (e.target.src = `${import.meta.env.BASE_URL}4537019.png`)}
+                                    alt="student"
+                                />
                             ) : (
                                 <img
-                            src={`https://info.aec.edu.in/ACET/StudentPhotos/${item['Roll.No']}.jpg`}
-                            onError={e => (e.target.src = `${import.meta.env.BASE_URL}4537019.png`)}
-                            alt="student"
-                        />
+                                    src={`https://info.aec.edu.in/ACET/StudentPhotos/${item['Roll.No']}.jpg`}
+                                    onError={e => (e.target.src = `${import.meta.env.BASE_URL}4537019.png`)}
+                                    alt="student"
+                                />
                             )
                         }
                         <h3>{item.year} Year</h3>
@@ -58,20 +58,18 @@ const showAllData = () => {
                         }
                         {
                             item["Inter %"] && (
-                                <p> <strong>Inter %:</strong> {item["Inter %"]} </p>
+                                <p> <strong>Inter:</strong> {item["Inter %"]} %</p>
                             )
                         }
                         {
                             item["Diploma"] && (
-                                <p> <strong>Diploma %:</strong> {item["Gender"]} </p>
+                                <p> <strong>Diploma %:</strong> {item["Diploma"]} </p>
                             )
                         }
-                        {
-                            item["BL"] && (
-                                <p> <strong>BackLog:</strong> {item["BL"]} </p>
-                            )
-                        }
-                        
+                        {item["BL"] !== undefined && item["BL"] !== null && (
+                            <p><strong>Backlog:</strong> {item["BL"] === 0 ? "None" : item["BL"]}</p>
+                        )}
+
                         <p><strong>BTech CGPA:</strong> {item['CGPA']}</p>
                         <p><strong>Department:</strong> {item.branch}</p>
                         <p><strong>College:</strong> {item.collage}</p>
