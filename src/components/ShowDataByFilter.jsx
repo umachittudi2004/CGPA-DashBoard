@@ -7,12 +7,16 @@ const ShowDataByFilters = ({ data }) => {
     const uniqueColleges = [...new Set(data.map(d => d.collage).filter(Boolean))];
     const uniqueGenders = [...new Set(data.map(d => d["Gender"]).filter(Boolean))];
     const genderExists = data.some(d => d["Gender"]);
+    const CGPAExits = data.some(d => d["CGPA"]);
     const [selectedYear, setSelectedYear] = useState('');
     const [selectedBranch, setSelectedBranch] = useState('');
     const [selectedCollege, setSelectedCollege] = useState('');
     const [rollSearch, setRollSearch] = useState('');
     const [nameSearch, setNameSearch] = useState('');
     const [selectedGender, setSelectedGender] = useState('');
+    const [cgpaComparison, setCgpaComparison] = useState('');
+    const [cgpaValue, setCgpaValue] = useState('');
+
 
     const [filteredData, setFilteredData] = useState(data);
 
@@ -28,8 +32,18 @@ const ShowDataByFilters = ({ data }) => {
         if (nameSearch) {
             filtered = filtered.filter(item => item['Name']?.toLowerCase().includes(nameSearch.toLowerCase()));
         }
+        if (cgpaComparison && cgpaValue) {
+            const cgpaNum = parseFloat(cgpaValue);
+            if (!isNaN(cgpaNum)) {
+                if (cgpaComparison === 'gt') {
+                    filtered = filtered.filter(item => parseFloat(item["CGPA"]) > cgpaNum);
+                } else if (cgpaComparison === 'lt') {
+                    filtered = filtered.filter(item => parseFloat(item["CGPA"]) < cgpaNum);
+                }
+            }
+        }
         setFilteredData(filtered);
-    }, [selectedYear, selectedBranch, selectedGender, selectedCollege, rollSearch, data, nameSearch]);
+    }, [selectedYear, selectedBranch, selectedGender, selectedCollege, rollSearch, data, nameSearch, cgpaComparison, cgpaValue]);
 
     return (
         <div className="filter-container">
@@ -41,7 +55,6 @@ const ShowDataByFilters = ({ data }) => {
                         <option key={year} value={year}>{year}</option>
                     ))}
                 </select>
-
                 <select value={selectedBranch} onChange={e => setSelectedBranch(e.target.value)}>
                     <option value="">All Branches</option>
                     {uniqueBranches.map(branch => (
@@ -64,6 +77,29 @@ const ShowDataByFilters = ({ data }) => {
                         ))}
                     </select>
                 )}
+
+                {
+                    CGPAExits && (
+                        <div className="cgpa-filter">
+                            <select value={cgpaComparison} onChange={e => setCgpaComparison(e.target.value)}>
+                                <option value="">CGPA Filter</option>
+                                <option value="gt">Greater Than</option>
+                                <option value="lt">Less Than</option>
+                            </select>
+
+                            <input
+                                type="number"
+                                placeholder="Enter CGPA"
+                                value={cgpaValue}
+                                onChange={e => setCgpaValue(e.target.value)}
+                                min="0"
+                                max="10"
+                                step="0.01"
+                            />
+                        </div>
+
+                    )
+                }
 
 
                 <input
@@ -90,13 +126,25 @@ const ShowDataByFilters = ({ data }) => {
                     filteredData.map((item, idx) => (
                         <div key={idx} className="student-card">
                             {
-                                item["Roll.No"].slice(2, 4) === "A9" ? (
+                                item.collage === "Aditya Engineering College" && (
                                     <img
                                         src={`https://info.aec.edu.in/AEC/StudentPhotos/${item['Roll.No']}.jpg`}
                                         onError={e => (e.target.src = `${import.meta.env.BASE_URL}4537019.png`)}
                                         alt="student"
                                     />
-                                ) : (
+                                )
+                            }
+                            {
+                                item.collage === "Aditya College of Engineering and Technology" && (
+                                    <img
+                                        src={`https://info.aec.edu.in/ACET/StudentPhotos/${item['Roll.No']}.jpg`}
+                                        onError={e => (e.target.src = `${import.meta.env.BASE_URL}4537019.png`)}
+                                        alt="student"
+                                    />
+                                )
+                            }
+                            {
+                                item.collage === "Aditya college of Engineering" && (
                                     <img
                                         src={`https://info.aec.edu.in/ACET/StudentPhotos/${item['Roll.No']}.jpg`}
                                         onError={e => (e.target.src = `${import.meta.env.BASE_URL}4537019.png`)}
@@ -124,7 +172,7 @@ const ShowDataByFilters = ({ data }) => {
                             }
                             {
                                 item["SSC CGPA"] && (
-                                    <p> <strong>SSC CGPA:</strong> {item["SSC CGPA"]} </p>
+                                    <p> <strong>SSC CGPA:</strong> {item["SSC CGPA"].toFixed(2)} </p>
                                 )
                             }
                             {
@@ -140,7 +188,11 @@ const ShowDataByFilters = ({ data }) => {
                             {item["BL"] !== undefined && item["BL"] !== null && (
                                 <p><strong>Backlog:</strong> {item["BL"] === 0 ? "None" : item["BL"]}</p>
                             )}
-                            <p><strong>CGPA:</strong> {item['CGPA']}</p>
+                            {
+                                item["CGPA"] && (
+                                    <p><strong>CGPA:</strong> {item["CGPA"]}</p>
+                                )
+                            }
                             <p><strong>Department:</strong> {item.branch}</p>
                             <p><strong>College:</strong> {item.collage}</p>
                         </div>

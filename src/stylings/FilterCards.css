@@ -7,6 +7,36 @@
     text-align: center;
     justify-content: center;
 }
+.cgpa-filter {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.cgpa-filter select, .cgpa-filter input {
+  padding: 10px;
+  font-size: 0.95rem;
+  width: 150px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+}
+.cgpa-filter input[type=number]::-webkit-inner-spin-button,
+.cgpa-filter input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Remove arrows in Firefox */
+.cgpa-filter input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.cgpa-filter input[type="number"]:focus {
+    border: 1px solid #e69e00 !important;
+    outline: none;
+    box-shadow: 0 0 5px rgba(230, 158, 0, 0.4);
+}
+
 
 .dropdowns {
   display: flex;

@@ -19,13 +19,25 @@ const showAllData = () => {
                 {currentData.map((item, index) => (
                     <div className="student-card" key={index}>
                         {
-                            item["Roll.No"].slice(2, 4) === "A9" ? (
+                            item.collage === "Aditya Engineering College" && (
                                 <img
                                     src={`https://info.aec.edu.in/AEC/StudentPhotos/${item['Roll.No']}.jpg`}
                                     onError={e => (e.target.src = `${import.meta.env.BASE_URL}4537019.png`)}
                                     alt="student"
                                 />
-                            ) : (
+                            )
+                        }
+                        {
+                            item.collage === "Aditya College of Engineering and Technology" && (
+                                <img
+                                    src={`https://info.aec.edu.in/ACET/StudentPhotos/${item['Roll.No']}.jpg`}
+                                    onError={e => (e.target.src = `${import.meta.env.BASE_URL}4537019.png`)}
+                                    alt="student"
+                                />
+                            )
+                        }
+                        {
+                            item.collage === "Aditya college of Engineering" && (
                                 <img
                                     src={`https://info.aec.edu.in/ACET/StudentPhotos/${item['Roll.No']}.jpg`}
                                     onError={e => (e.target.src = `${import.meta.env.BASE_URL}4537019.png`)}
@@ -53,7 +65,7 @@ const showAllData = () => {
                         } */}
                         {
                             item["SSC CGPA"] && (
-                                <p> <strong>SSC CGPA:</strong> {item["SSC CGPA"]} </p>
+                                <p> <strong>SSC CGPA:</strong> {item["SSC CGPA"].toFixed(2)} </p>
                             )
                         }
                         {
@@ -70,7 +82,11 @@ const showAllData = () => {
                             <p><strong>Backlog:</strong> {item["BL"] === 0 ? "None" : item["BL"]}</p>
                         )}
 
-                        <p><strong>BTech CGPA:</strong> {item['CGPA']}</p>
+                        {
+                            item["CGPA"] && (
+                                <p><strong>CGPA:</strong> {item["CGPA"]}</p>
+                            )
+                        }
                         <p><strong>Department:</strong> {item.branch}</p>
                         <p><strong>College:</strong> {item.collage}</p>
                     </div>
